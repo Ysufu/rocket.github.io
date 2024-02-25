@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Login</title>
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="expires" content="-1" />	
+<meta content='width=device-width, user-scalable=no' name='viewport'/>
+<link rel="stylesheet" href="login.css" media="screen">
+ 
+
+</head>
+<body class='login'>
+$(if chap-id)
+	<form name="sendin" action="$(link-login-only)" method="post">
+		<input type="hidden" name="username" />
+		<input type="hidden" name="password" />
+		<input type="hidden" name="dst" value="$(link-orig)" />
+		<input type="hidden" name="popup" value="true" />
+	</form>
+	
+	<script type="text/javascript" src="/md5.js"></script>
+	<script type="text/javascript">
+	<!--
+	    function doLogin() {
+		document.sendin.username.value = document.login.username.value;
+		document.sendin.password.value = hexMD5('$(chap-id)' + document.login.password.value + '$(chap-challenge)');
+		document.sendin.submit();
+		return false;
+	    }
+	//-->
+	</script>
+$(endif)
+
+
+<form class="vertical-form" name="login" action="$(link-login-only)" method="post" background="#A03472" id="loginForm">
+	$(if chap-id) onSubmit="return doLogin()" $(endif)>
+<input type="hidden" name="dst" value="$(link-orig)" />
+<input type="hidden" name="popup" value="true" />
+<div style="margin:0;padding:0;display:inline"></div>
+<legend>
+<img class="logo" src="logo.png" />
+<aqui se puede escribir>
+</legend>
+<input name="username" type="text" value="$(username)" placeholder="Username" size="30" />
+<input autocomplete="off" name="password" type="password" label="false" placeholder="Password" size="30" />
+<input name="submit" type="submit" value=" " />
+<div class='footer'>
+<p>$(if trial == 'yes')<h1 class="text">Powered By Yusdev</h1> <a href="$(link-login-only)?dst=$(link-orig-esc)&amp;username=T-$(mac-esc)"></a>.$(endif)</p>
+$(if error)<span style="color: #FF8080; font-size: 16px">$(error)</span>$(endif)</p>
+<br>
+</div>
+</form>
+  <script type="text/javascript">
+  const target = window.document.getElementsByTagName('h1')[0]
+
+const flickerLetter = letter => `<span style="animation: text-flicker-in-glow ${Math.random()*4}s linear both ">${letter}</span>`
+const colorLetter = letter => `<span style="color: hsla(${Math.random()*360}, 100%, 80%, 1);">${letter}</span>`;
+const flickerAndColorText = text => 
+  text
+    .split('')
+    .map(flickerLetter)
+    .map(colorLetter)
+    .join('');
+const neonGlory = target => target.innerHTML = flickerAndColorText(target.textContent);
+
+
+neonGlory(target);
+target.onclick = ({ target }) =>  neonGlory(target);
+  </script>
+  <script type="text/javascript">
+        document.getElementById("loginForm").addEventListener("submit", function(event){
+            event.preventDefault();
+            document.body.style.backgroundImage = "url('rocket.webp')";
+            setTimeout(function(){
+                document.body.style.backgroundImage = "url('rocket1.webp')";
+            }, 5000); // 3000 milliseconds = 3 seconds
+        });
+  </script>
+<script type="text/javascript">
+<!--
+  document.login.username.focus();
+//-->
+</script>
+</body>
+</html>
